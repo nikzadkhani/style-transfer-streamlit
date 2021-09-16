@@ -122,3 +122,7 @@ dmypy.json
 
 # Pyre type checker
 .pyre/
+
+# Stuff that isn't ready
+model.py
+torch_utils.py
