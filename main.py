@@ -72,8 +72,16 @@ def predict_fast_stylized_image():
         st.session_state.stylized_image = tensor_to_image(stylized_image)
 
 
-form.form_submit_button('Predict Stylized Image',
-                        on_click=predict_fast_stylized_image)
+clicked = form.form_submit_button('Predict Stylized Image')
+
+if clicked:
+    if st.session_state.source_image_data is None:
+        form.error('Please provide a valid Source Image')
+        
+    elif st.session_state.style_image_data is None:
+        form.error('Please provide a valid Style Image')
+    else:  
+        predict_fast_stylized_image()
 
 if st.session_state.stylized_image is not None:
     result_left, result_right = st.columns(2)
