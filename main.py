@@ -84,15 +84,27 @@ if clicked:
         predict_fast_stylized_image()
 
 if st.session_state.stylized_image is not None:
-    result_left, result_right = st.columns(2)
+    _, result, _ = st.columns((1, 3, 1))
     img = st.session_state.stylized_image
     img_height, img_width = img.size
-    result_left.image(img, caption=f"{img_height} x {img_width}")
+    result.image(img, caption=f"{img_height} x {img_width}")
 
     image_buffer = BytesIO()
     img.save(image_buffer, format='png')
-    result_right.download_button(
+
+    _ , download, _ = st.columns((1, 3, 1))
+    download.download_button(
         'Download Stylized Image', image_buffer,
         file_name='stylized-image.png', mime='image/png')
 
 
+#----------------------Hide Streamlit footer----------------------------
+hide_streamlit_style = """
+            <style>
+            #MainMenu {visibility: hidden;}
+            footer {visibility: hidden;}
+            </style>
+            """
+st.markdown(hide_streamlit_style, unsafe_allow_html=True)
+
+#--------------------------------------------------------------------
